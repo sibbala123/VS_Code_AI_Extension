@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-qwen
+  namespace: ai-assistant
+  labels:
+    app: ollama-qwen
+    component: ai-inference
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ollama-qwen
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: ollama-qwen
+        component: ai-inference
+    spec:
+      containers:
+      - name: ollama
+        image: your-registry/ollama-qwen:latest  # CHANGE THIS
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 11434
+          name: http
+          protocol: TCP
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 11434
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 11434
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: OLLAMA_HOST
+          value: "0.0.0.0:11434"
+        - name: OLLAMA_ORIGINS
+          value: "*"
