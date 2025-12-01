@@ -3,7 +3,7 @@
 set -e
 
 # Configuration - UPDATE THESE
-REGISTRY="your-dockerhub-username"  # e.g., "myusername" or "myacr.azurecr.io"
+REGISTRY="swaruppanda11"  # e.g., "myusername" or "myacr.azurecr.io"
 IMAGE_NAME="ollama-qwen"
 TAG="latest"
 
@@ -17,7 +17,7 @@ cd "$(dirname "$0")/../kubernetes/ollama"
 
 # Build the image
 echo "📦 Building Docker image..."
-docker build -t ${REGISTRY}/${IMAGE_NAME}:${TAG} .
+docker build --platform linux/amd64 --no-cache -t ${REGISTRY}/${IMAGE_NAME}:${TAG} .
 
 if [ $? -eq 0 ]; then
     echo "✅ Build successful!"

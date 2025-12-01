@@ -7,7 +7,7 @@ EXPOSE 11434
 # This is crucial - otherwise each pod downloads the model on startup
 RUN ollama serve & \
     sleep 10 && \
-    ollama pull qwen2.5:latest && \
+    ollama pull qwen2.5:1.5b && \
     pkill ollama
 
 # Health check
@@ -15,4 +15,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:11434/ || exit 1
 
 # Start Ollama server
-CMD ["ollama", "serve"]
+CMD ["serve"]

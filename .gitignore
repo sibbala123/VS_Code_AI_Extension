@@ -1,0 +1,130 @@
+# ========================================
+# Python / Backend
+# ========================================
+backend/venv/
+backend/env/
+backend/__pycache__/
+backend/app/__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Backend duplicate files
+backend/requirements copy.txt
+backend/*copy.txt
+
+# ========================================
+# Node / VS Code Extension
+# ========================================
+Extension/ai-assistant-vscode/node_modules/
+Extension/ai-assistant-vscode/out/
+Extension/ai-assistant-vscode/dist/
+Extension/ai-assistant-vscode/.vscode-test/
+*.vsix
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ========================================
+# Kubernetes Secrets - NEVER COMMIT
+# ========================================
+kubernetes/*/secrets.yaml
+secrets.yaml
+*.secret.yaml
+
+# Keep the example files
+!kubernetes/*/secrets.yaml.example
+
+# ========================================
+# IDE / Editor
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history
+
+# ========================================
+# OS Files
+# ========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ========================================
+# Temporary Files
+# ========================================
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*~.nib
+local.properties
+
+# ========================================
+# Logs
+# ========================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================================
+# Testing
+# ========================================
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ========================================
+# Build artifacts
+# ========================================
+*.min.js
+*.min.css
