@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-backend
+  namespace: ai-assistant
+spec:
+  type: LoadBalancer
+  selector:
+    app: fastapi-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

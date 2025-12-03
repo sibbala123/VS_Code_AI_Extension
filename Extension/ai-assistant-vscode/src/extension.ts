@@ -18,7 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
         panel.webview.onDidReceiveMessage(async (message) => {
             if (message.command === 'sendQuery') {
                 try {
-                    const response = await fetch('http://localhost:8000/query', {
+                    const config = vscode.workspace.getConfiguration('aiAssistant');
+                    const BACKEND_URL = config.get('backendUrl') as string;
+
+                    const response = await fetch(BACKEND_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ session_id: 'vscode', question: message.text })
@@ -88,4 +91,4 @@ function getWebviewContent(previousChats: { user: string; ai: string }[]) {
     `;
 }
 
-export function deactivate() {}
+export function deactivate() { }

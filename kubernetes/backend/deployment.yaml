@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: your-registry/fastapi-backend:latest  # CHANGE THIS
+        image: aiassistantregistry.azurecr.io/fastapi-backend:v4
         imagePullPolicy: Always
         ports:
         - containerPort: 8000

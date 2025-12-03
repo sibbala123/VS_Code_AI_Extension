@@ -3,23 +3,33 @@
   "displayName": "ai-assistant-vscode",
   "description": "",
   "version": "0.0.1",
+  "publisher": "ai-assistant",
   "engines": {
     "vscode": "^1.106.1"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-  "commands": [
-    {
-      "command": "aiAssistant.openChat",
-      "title": "AI Assistant: Open Chat"
+    "commands": [
+      {
+        "command": "aiAssistant.openChat",
+        "title": "AI Assistant: Open Chat"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "AI Assistant Settings",
+      "properties": {
+        "aiAssistant.backendUrl": {
+          "type": "string",
+          "default": "http://localhost:8000/query",
+          "description": "Backend URL for the AI Assistant"
+        }
+      }
     }
-  ]
-}
-,
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
