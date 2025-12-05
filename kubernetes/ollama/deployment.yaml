@@ -32,11 +32,11 @@ spec:
           protocol: TCP
         resources:
           requests:
-            memory: "4Gi"
-            cpu: "1000m"
+            memory: "2Gi"
+            cpu: "500m"
           limits:
-            memory: "6Gi"
-            cpu: "2000m"
+            memory: "4Gi"
+            cpu: "1500m"
         livenessProbe:
           httpGet:
             path: /
