@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #5a6c7d;
+            margin-bottom: 20px;
+        }
+
+        .authors {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .section {
+            margin: 60px 0;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .diagram-wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            min-height: 600px;
+        }
+
+        /* Override Mermaid default styles for larger text */
+        .mermaid svg {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 3em;
+            font-weight: 800;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: #667eea;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .highlight-box li {
+            margin: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .highlight-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .tech-card {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .tech-card h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-card li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #5a6c7d;
+            font-size: 1.05em;
+        }
+
+        .tech-card li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AI Assistant VS Code Extension</h1>
+            <p class="subtitle">Cloud-Native Architecture with Intelligent Auto-Scaling</p>
+            <div class="authors">👨‍💻 Swarup Panda & Jayanth Sibbala</div>
+        </div>
+
+        <!-- Metrics Section -->
+        <div class="section">
+            <h2>📊 Project Achievements</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Technologies</div>
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">Cloud Services</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Autoscaling</div>
+                    <div class="metric-value">1→10</div>
+                    <div class="metric-label">Pods</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Peak Load</div>
+                    <div class="metric-value">286%</div>
+                    <div class="metric-label">CPU Usage</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Total Cost</div>
+                    <div class="metric-value">$120</div>
+                    <div class="metric-label">Azure Credits</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Platforms</div>
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">Mac + Windows</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Savings</div>
+                    <div class="metric-value">15%</div>
+                    <div class="metric-label">Cost Optimized</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Diagram -->
+        <div class="section">
+            <h2>🏗️ System Architecture</h2>
+            <div class="diagram-wrapper">
+                <div class="mermaid">
+graph LR
+    Dev["<b>VS Code Extension</b><br/>Mac & Windows<br/>TypeScript UI"]
+    
+    LB["<b>Load Balancer</b><br/>172.193.220.19:80"]
+    
+    subgraph Backend["FastAPI Layer"]
+        API1["<b>FastAPI Pod 1</b>"]
+        API2["<b>FastAPI Pod 2</b>"]
+    end
+    
+    OllSvc["<b>Ollama Service</b><br/>ollama-service:11434"]
+    
+    subgraph AI["AI Layer - Auto-Scaling"]
+        AI1["<b>Ollama Pod 1</b><br/>Qwen 2.5:1.5B"]
+        AI2["<b>Ollama Pod 2</b><br/>Qwen 2.5:1.5B"]
+        AI3["<b>... up to 10 pods</b>"]
+    end
+    
+    subgraph Storage["Storage & Security"]
+        Blob["<b>Blob Storage</b><br/>Chat Logs"]
+        KV["<b>Key Vault</b><br/>Secrets"]
+    end
+    
+    HPA["<b>HPA</b><br/>Min: 1, Max: 10"]
+    
+    Dev -->|POST /query| LB
+    LB --> API1
+    LB --> API2
+    API1 --> OllSvc
+    API2 --> OllSvc
+    OllSvc --> AI1
+    OllSvc --> AI2
+    OllSvc --> AI3
+    API1 --> Blob
+    API2 --> Blob
+    API1 --> KV
+    API2 --> KV
+    HPA -.-> AI1
+    HPA -.-> AI2
+    
+    style Dev fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style LB fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style API1 fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style API2 fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style OllSvc fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style AI1 fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style AI2 fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style AI3 fill:#FFF9C4,stroke:#F57F17,stroke-width:2px
+    style HPA fill:#F3E5F5,stroke:#7B1FA2,stroke-width:3px
+    style Blob fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style KV fill:#E1F5FE,stroke:#0277BD,stroke-width:3px
+    style Backend fill:#f8f9fa,stroke:#667eea,stroke-width:2px
+    style AI fill:#f8f9fa,stroke:#667eea,stroke-width:2px
+    style Storage fill:#f8f9fa,stroke:#667eea,stroke-width:2px
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Flow -->
+        <div class="section">
+            <h2>🔄 Request Flow</h2>
+            <div class="diagram-wrapper">
+                <div class="mermaid">
+sequenceDiagram
+    participant U as VS Code
+    participant L as Load Balancer
+    participant F as FastAPI
+    participant K as Key Vault
+    participant O as Ollama AI
+    participant B as Blob Storage
+    
+    U->>L: POST /query
+    L->>F: Route request
+    F->>K: Get credentials
+    K-->>F: Return secrets
+    F->>O: Generate AI response
+    Note over O: Process with<br/>Qwen 2.5:1.5B
+    O-->>F: AI response
+    F->>B: Save chat log
+    B-->>F: Saved ✓
+    F-->>L: JSON response
+    L-->>U: Display answer
+                </div>
+            </div>
+        </div>
+
+        <!-- Autoscaling -->
+        <div class="section">
+            <h2>⚡ Autoscaling Lifecycle</h2>
+            <div class="diagram-wrapper">
+                <div class="mermaid">
+graph LR
+    A["<b>BASELINE</b><br/>1 Pod<br/>CPU: 20%"]
+    B["<b>OVERLOAD</b><br/>CPU: 286%<br/>Memory: 120%"]
+    C["<b>SCALE UP</b><br/>1→2→4→8<br/>HPA Triggers"]
+    D["<b>DISTRIBUTED</b><br/>8 Pods<br/>CPU: 60% each"]
+    E["<b>SCALE DOWN</b><br/>8→4→2→1<br/>5 min cooldown"]
+    
+    A -->|Traffic ↑| B
+    B -->|HPA Acts| C
+    C -->|Load Shared| D
+    D -->|Traffic ↓| E
+    E -->|Optimized| A
+    
+    style A fill:#90EE90,stroke:#2E7D32,stroke-width:3px
+    style B fill:#FF6B6B,stroke:#C62828,stroke-width:3px
+    style C fill:#4ECDC4,stroke:#00695C,stroke-width:3px
+    style D fill:#95E1D3,stroke:#00897B,stroke-width:3px
+    style E fill:#FFD93D,stroke:#F57F17,stroke-width:3px
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🎯 Autoscaling Achievements</h3>
+                <ul>
+                    <li><strong>Successfully scaled from 1 → 8 pods</strong> under 286% CPU load</li>
+                    <li><strong>HPA responded within 60 seconds</strong> of detecting high load</li>
+                    <li><strong>Load distributed efficiently</strong> reducing CPU to 60% per pod</li>
+                    <li><strong>Automatic scale-down</strong> after load decreased (5-10 min)</li>
+                    <li><strong>15% cost savings</strong> vs always-on cluster (~$140/month)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Persistence -->
+        <div class="section">
+            <h2>💾 Data Persistence - WORKING!</h2>
+            <div class="highlight-box">
+                <h3>📦 Azure Blob Storage Integration</h3>
+                <ul>
+                    <li><strong>Real-time saving:</strong> Every query/response saved as JSON</li>
+                    <li><strong>Session tracking:</strong> Unique IDs for each conversation</li>
+                    <li><strong>Metadata captured:</strong> Timestamps, latency, token counts</li>
+                    <li><strong>Secure storage:</strong> Credentials managed by Key Vault</li>
+                    <li><strong>Analytics ready:</strong> Data structured for future analysis</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2>🎨 Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>🎨 Frontend</h3>
+                    <ul>
+                        <li>VS Code Extension</li>
+                        <li>TypeScript</li>
+                        <li>Webview API</li>
+                        <li>Mac & Windows Support</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>🔌 API Gateway</h3>
+                    <ul>
+                        <li>FastAPI (Python)</li>
+                        <li>2 Replicas (HA)</li>
+                        <li>LoadBalancer Service</li>
+                        <li>Request Routing</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>🤖 AI Engine</h3>
+                    <ul>
+                        <li>Ollama</li>
+                        <li>Qwen 2.5:1.5B</li>
+                        <li>1-10 Pod Autoscaling</li>
+                        <li>CPU/Memory Based HPA</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>☸️ Orchestration</h3>
+                    <ul>
+                        <li>Azure Kubernetes Service</li>
+                        <li>2-5 Node Autoscaling</li>
+                        <li>Standard_D2s_v3 VMs</li>
+                        <li>Kubernetes 1.32.9</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>💾 Storage & Security</h3>
+                    <ul>
+                        <li>Azure Blob Storage</li>
+                        <li>Azure Key Vault</li>
+                        <li>JSON Log Format</li>
+                        <li>Managed Identities</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>🛠️ DevOps</h3>
+                    <ul>
+                        <li>Docker Hub Registry</li>
+                        <li>kubectl Deployment</li>
+                        <li>hey Load Testing</li>
+                        <li>Cost Optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="section">
+            <h2>✨ Project Summary</h2>
+            <div class="highlight-box">
+                <h3>Complete Cloud-Native AI Assistant</h3>
+                <ul>
+                    <li><strong>6 Cloud Technologies:</strong> AKS, Ollama, FastAPI, Docker Hub, Blob Storage, Key Vault</li>
+                    <li><strong>Production-Ready:</strong> Load balancing, autoscaling, data persistence</li>
+                    <li><strong>Cost-Efficient:</strong> $120 total cost (within Azure student credits budget)</li>
+                    <li><strong>Cross-Platform:</strong> Works seamlessly on Mac and Windows</li>
+                    <li><strong>Secure:</strong> No hardcoded secrets, Key Vault integration</li>
+                    <li><strong>Scalable:</strong> Handles 1-10 pods, 2-5 nodes automatically</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                fontSize: '20px',
+                fontFamily: 'Inter, sans-serif'
+            },
+            flowchart: {
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 30,
+                nodeSpacing: 100,
+                rankSpacing: 100
+            },
+            sequence: {
+                fontSize: 18,
+                actorMargin: 80,
+                boxMargin: 10,
+                messageMargin: 50,
+                mirrorActors: true
+            }
+        });
+    </script>
+</body>
+</html>
