@@ -3,7 +3,11 @@
   "displayName": "ai-assistant-vscode",
   "description": "",
   "version": "0.0.1",
-  "publisher": "ai-assistant",
+  "publisher": "internal-ai-assistant",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-assistant/vscode-extension.git"
+  },
   "engines": {
     "vscode": "^1.106.1"
   },
