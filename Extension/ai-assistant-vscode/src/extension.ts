@@ -26,7 +26,20 @@ export function activate(context: vscode.ExtensionContext) {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ session_id: 'vscode', question: message.text })
                     });
-                    const data = (await response.json()) as { response: string };
+
+                    // Check if response is ok
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`Backend error (${response.status}): ${errorText}`);
+                    }
+
+                    const data = (await response.json()) as { response?: string; error?: string };
+
+                    // Check if response field exists
+                    if (!data.response) {
+                        const errorMsg = data.error || 'No response from AI model';
+                        throw new Error(`AI model error: ${errorMsg}`);
+                    }
 
                     // Send AI response back to Webview
                     panel.webview.postMessage({ command: 'showResponse', userQuery: message.text, aiResponse: data.response });
@@ -36,7 +49,8 @@ export function activate(context: vscode.ExtensionContext) {
                     context.globalState.update('chatHistory', previousChats);
 
                 } catch (err) {
-                    panel.webview.postMessage({ command: 'showResponse', userQuery: message.text, aiResponse: 'Error: ' + err });
+                    const errorMessage = err instanceof Error ? err.message : String(err);
+                    panel.webview.postMessage({ command: 'showResponse', userQuery: message.text, aiResponse: `Error: ${errorMessage}` });
                 }
             }
         });

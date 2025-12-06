@@ -5,6 +5,10 @@ backend/venv/
 backend/env/
 backend/__pycache__/
 backend/app/__pycache__/
+__pycache__/
+*.png
+*.jpg
+*.jpeg
 *.py[cod]
 *.so
 *.egg

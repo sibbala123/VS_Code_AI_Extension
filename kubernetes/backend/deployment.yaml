@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: aiassistantregistry.azurecr.io/fastapi-backend:v4
+        image: aiassistantregistry.azurecr.io/fastapi-backend:v6-keyvault
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -54,10 +54,15 @@ spec:
           timeoutSeconds: 3
           failureThreshold: 3
         env:
-        - name: OLLAMA_URL
-          value: "http://ollama-service:11434"
+        # Key Vault Configuration
+        - name: KEY_VAULT_NAME
+          value: "aiassistantkv123"
         - name: ENVIRONMENT
           value: "production"
+        - name: LOG_LEVEL
+          value: "INFO"
+        # For local development fallback (not needed in production)
+        # BLOB_CONNECTION_STRING, BLOB_CONTAINER_NAME will be retrieved from Key Vault
         envFrom:
         - configMapRef:
             name: backend-config
