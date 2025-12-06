@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
 **Team:** Swarup Panda & Jayanth Sibbala  
-**Course:** Distributed Computing Systems (DCSC)  
+**Course:** Datacenter Scale Computing (DCSC)  
 **Institution:** University of Colorado Boulder
 
 ---
